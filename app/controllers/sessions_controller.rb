@@ -7,12 +7,12 @@ class SessionsController < ApplicationController
       session[:user] = user.as_json
       redirect_to root_url
     else
-      redirect_to "https://tradegecko.com"
+      redirect_to "https://www.tradegecko.com"
     end
   end
 
   def destroy
-    session[:user_id] = nil
+    session[:user] = nil
     redirect_to root_url, notice: "Signed out!"
   end
 

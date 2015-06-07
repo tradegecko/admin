@@ -1,25 +1,21 @@
 class ExperimentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_experiment, only: [:show, :edit, :update, :destroy]
 
-  # GET /experiments
   def index
     @experiments = Experiment.all
   end
 
-  # GET /experiments/1
   def show
   end
 
-  # GET /experiments/new
   def new
     @experiment = Experiment.new
   end
 
-  # GET /experiments/1/edit
   def edit
   end
 
-  # POST /experiments
   def create
     @experiment = Experiment.new(experiment_params)
 
@@ -30,7 +26,6 @@ class ExperimentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /experiments/1
   def update
     if @experiment.update(experiment_params)
       redirect_to @experiment, notice: 'Experiment was successfully updated.'
@@ -39,20 +34,18 @@ class ExperimentsController < ApplicationController
     end
   end
 
-  # DELETE /experiments/1
   def destroy
     @experiment.destroy
     redirect_to experiments_url, notice: 'Experiment was successfully destroyed.'
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_experiment
-      @experiment = Experiment.find(params[:id])
-    end
+private
 
-    # Only allow a trusted parameter "white list" through.
-    def experiment_params
-      params.require(:experiment).permit(:key, :instrument_id)
-    end
+  def set_experiment
+    @experiment = Experiment.find(params[:id])
+  end
+
+  def experiment_params
+    params.require(:experiment).permit(:key, :instrument_id)
+  end
 end
