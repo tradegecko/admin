@@ -11,6 +11,13 @@
 
 <div class="librato-metrics" data-instrument_id="<%= @experiment.instrument_id %>"></div>
 
+<h4>Errors</h4>
+<%= Redis.tradegecko.llen("science.#{@experiment.key}.mismatch") %> Mismatches
+
+<% Redis.tradegecko.lrange("science.#{@experiment.key}.mismatch", 0, 50).each do |value| %>
+  <%= value %>
+<% end %>
+
 <%= link_to t('.back', :default => t("helpers.links.back")),
               experiments_path, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
