@@ -1,14 +1,15 @@
 <%- model_class = Experiment -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  <h1><%= @experiment.key %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:key) %>:</strong></dt>
-  <dd><%= @experiment.key %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:instrument_id) %>:</strong></dt>
-  <dd><%= @experiment.instrument_id %></dd>
-</dl>
+<script type="text/javascript"
+    src="https://sdk.librato.com/librato-sdk-v0.5.1-min.js"
+    data-librato_email="<%= ENV['LIBRATO_EMAIL'] %>"
+    data-librato_token="<%= ENV['LIBRATO_TOKEN'] %>">
+</script>
+
+<div class="librato-metrics" data-instrument_id="<%= @experiment.instrument_id %>"></div>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               experiments_path, :class => 'btn btn-default'  %>
